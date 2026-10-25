@@ -1,0 +1,18 @@
+model Review {
+  id            String   @id @default(cuid())
+  customerId    String
+  gearItemId    String
+  rentalOrderId String 
+  rating        Int 
+  comment       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  customer    User        @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  gearItem    GearItem    @relation(fields: [gearItemId], references: [id], onDelete: Cascade)
+  rentalOrder RentalOrder @relation(fields: [rentalOrderId], references: [id])
+
+  @@unique([customerId, gearItemId, rentalOrderId]) // one review per item per order
+  @@index([gearItemId])
+  @@map("reviews")
+}
