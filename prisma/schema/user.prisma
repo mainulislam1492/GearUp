@@ -2,15 +2,9 @@ model User {
     id           String     @id @default(cuid())
     name         String
     email        String     @unique
-    passwordHash String
+    password String
     role         Role       @default(CUSTOMER)
     status       UserStatus @default(ACTIVE)
-    phone        String?
-    address      String?
-    avatarUrl    String?
-
-    shopName    String?
-    shopAddress String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -20,6 +14,8 @@ model User {
     providerOrders RentalOrder[] @relation("ProviderOrders")
     payments       Payment[]
     reviews        Review[]
+
+    profile Profile?
 
     @@index([role, status])
     @@map("users")
