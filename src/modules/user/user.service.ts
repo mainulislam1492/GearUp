@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import { Role } from "../../../generated/prisma/enums";
 import config from "../../config";
 import { prisma } from "../../lib/prisma";
-import { RegisterUserPayload } from "./user.interface";
+import { RegisterUserPayload, UpdateProfilePayload } from "./user.interface";
 
 const registerUserIntoDB = async (payload: RegisterUserPayload) => {
     const {
@@ -64,6 +64,60 @@ const registerUserIntoDB = async (payload: RegisterUserPayload) => {
     return user;
 };
 
+const getMyProfileFromDB = async (userId : string) => {
+    const user = await prisma.user.findUniqueOrThrow({
+        where : {id : userId},
+        omit : {
+            password : true
+        },
+        include : {
+            profile : true
+        }
+    });
+
+    return user;
+}
+
+
+const updateMyProfileInDB = async (userId: string, role: Role, payload: UpdateProfilePayload) => {
+    const { name, profilePhoto, phone, address, shopName, shopAddress } = payload;
+
+    const isProvider = role === Role.PROVIDER;
+
+    const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: {
+            name,
+            profile: {
+                upsert: {
+                    create: {
+                        profilePhoto,
+                        phone,
+                        address,
+                        shopName: isProvider ? shopName : undefined,
+                        shopAddress: isProvider ? shopAddress : undefined
+                    },
+                    update: {
+                        profilePhoto,
+                        phone,
+                        address,
+                        // only providers can change shop details
+                        shopName: isProvider ? shopName : undefined,
+                        shopAddress: isProvider ? shopAddress : undefined
+                    }
+                }
+            }
+        },
+        omit: { password: true },
+        include: { profile: true }
+    });
+
+    return updatedUser;
+};
+    
+
 export const userService = {
-    registerUserIntoDB
+    registerUserIntoDB,
+    getMyProfileFromDB,
+    updateMyProfileInDB
 };

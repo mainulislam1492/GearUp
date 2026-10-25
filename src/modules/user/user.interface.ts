@@ -12,3 +12,13 @@ export interface RegisterUserPayload {
     shopName?: string;
     shopAddress?: string;
 }
+
+export interface UpdateProfilePayload {
+    name?: string;
+    profilePhoto?: string;
+    phone?: string;
+    address?: string;
+    // provider only
+    shopName?: string;
+    shopAddress?: string;
+}
