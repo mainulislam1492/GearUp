@@ -4,8 +4,7 @@ import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { authService } from "./auth.service";
 
-const isProd = process.env.NODE_ENV === "production";
-
+const isProd = process.env.NODE_ENV === "production" || process.env.VERCEL === "1";
 const cookieOptions = {
   httpOnly: true,
   secure: isProd,
