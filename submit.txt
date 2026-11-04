@@ -1,0 +1,12 @@
+postman collection link : https://github.com/mainulislam1492/GearUp/blob/main/GearUp.postman.json
+
+Live Link : https://gear-up-peach.vercel.app/
+
+github link : https://github.com/mainulislam1492/GearUp
+
+// My laptop display is demaged, so the video looks blurry.please keep that in mind. And I dont have any extra device, which and why i had to make it with this ones.
+
+video link : https://drive.google.com/file/d/1-f5MpWGE9ZmnKFvCYrA1azfDEf8doC-P/view?usp=sharing
+
+# ADMIN_EMAIL=admin123@gmail.com
+# ADMIN_PASSWORD=admin@123
