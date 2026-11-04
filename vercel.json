@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "framework": null,
+  "installCommand": "npm install",
+  "buildCommand": "echo build skipped, api/index.js is built locally and committed",
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
+}
